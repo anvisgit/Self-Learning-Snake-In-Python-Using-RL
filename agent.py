@@ -3,7 +3,10 @@ import numpy as np
 import random 
 from game import SnakeGameAI, Direction, Point
 from collections import deque
-from model import Linerar_Qnet
+from model import Linerar_Qnet, QTrainer
+from plot import plotp
+
+
 
 MAX_MEMORY=100_000
 BATCH_SIZE=1000
@@ -106,6 +109,11 @@ def train():
             if score>record:
                 record=score
             print('Game: ', agent.n_games, 'Score: ', score, 'Record: ', record)
+            plot_scores.append(score)
+            tscore+=score
+            mean_score=tscore/agent.n_games
+            plot_mean_scores.append(mean_score)
+            plotp(plot_scores, plot_mean_scores)
 
 
 
